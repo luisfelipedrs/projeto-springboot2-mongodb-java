@@ -3,6 +3,7 @@ package com.luisfelipe.projetomongo.config;
 import com.luisfelipe.projetomongo.domain.Post;
 import com.luisfelipe.projetomongo.domain.User;
 import com.luisfelipe.projetomongo.dto.AuthorDTO;
+import com.luisfelipe.projetomongo.dto.CommentDTO;
 import com.luisfelipe.projetomongo.repository.PostRepository;
 import com.luisfelipe.projetomongo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,13 @@ public class Instantiation implements CommandLineRunner {
 
         Post post1 = new Post(null, sdf.parse("21/03/2022"), "Partiu viagem!", "Vou viajar para São Paulo, abraços!", new AuthorDTO(maria));
         Post post2 = new Post(null, sdf.parse("23/03/2022"), "Bom dia!", "Acordei feliz hoje!", new AuthorDTO(maria));
+
+        CommentDTO commentDTO1 = new CommentDTO("Boa viagem, mano!", sdf.parse("21/03/2022"), new AuthorDTO(alex));
+        CommentDTO commentDTO2 = new CommentDTO("Aproveite!", sdf.parse("22/03/2022"), new AuthorDTO(bob));
+        CommentDTO commentDTO3 = new CommentDTO("Tenha um ótimo dia!", sdf.parse("23/03/2022"), new AuthorDTO(alex));
+
+        post1.getComments().addAll(Arrays.asList(commentDTO1, commentDTO2));
+        post2.getComments().addAll(Arrays.asList(commentDTO3));
 
         postRepository.saveAll(Arrays.asList(post1, post2));
 
