@@ -1,6 +1,8 @@
 package com.luisfelipe.projetomongo.resources;
 
+import com.luisfelipe.projetomongo.domain.Post;
 import com.luisfelipe.projetomongo.domain.User;
+import com.luisfelipe.projetomongo.dto.AuthorDTO;
 import com.luisfelipe.projetomongo.dto.UserDTO;
 import com.luisfelipe.projetomongo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,5 +54,11 @@ public class UserResources {
         obj.setId(id);
         obj = service.update(obj);
         return ResponseEntity.noContent().build();
+    }
+
+    @RequestMapping(value = "/{id}/posts", method = RequestMethod.GET)
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+        User obj = service.findById(id);
+        return ResponseEntity.ok().body(obj.getPosts());
     }
 }
